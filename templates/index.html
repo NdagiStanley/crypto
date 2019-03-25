@@ -11,25 +11,30 @@
 
 <body>
     <div id="app">
+        {% load static %}
+        <img class="logo" src="{% static "logo.png" %}">
         <h2> [[ title ]] </h2>
         <h3> [[ subtitle ]] </h3>
 
-        <p>Enter your email: <input type="email" name="email" id="email"> </p>
-        <p>Pick some coins to track:</p>
-        <ul>
-            <li> <input type="checkbox" name="coin" id="Bitcoin" value="Bitcoin" v-model="checkedCoins"> Bitcoin </li>
-            <li> <input type="checkbox" name="coin" id="Dogecoin" value="Dogecoin" v-model="checkedCoins"> Dogecoin
-            </li>
-            <li> <input type="checkbox" name="coin" id="Litecoin" value="Litecoin" v-model="checkedCoins"> Litecoin
-            </li>
-            <li> <input type="checkbox" name="coin" id="NEO" value="NEO" v-model="checkedCoins"> NEO </li>
-            <li> <input type="checkbox" name="coin" id="Ethereum" value="Ethereum" v-model="checkedCoins"> Ethereum
-            </li>
-        </ul>
-        <span>Click submit to get prices of these [[ checkedCoins.length ]] coin(s) daily in your inbox: </span>
-        <span v-for="checkedCoin in checkedCoins"> [[ checkedCoin ]],</span>
-        <br>
-        <input type="button" value="submit">
+        <div id="form">
+            <p>Enter your email: <input type="email" name="email" id="email"> </p>
+            <p>Pick some coins to track:</p>
+            <ul>
+                <li> <input type="checkbox" name="coin" id="Bitcoin" value="Bitcoin" v-model="checkedCoins"> Bitcoin
+                </li>
+                <li> <input type="checkbox" name="coin" id="Dogecoin" value="Dogecoin" v-model="checkedCoins"> Dogecoin
+                </li>
+                <li> <input type="checkbox" name="coin" id="Litecoin" value="Litecoin" v-model="checkedCoins"> Litecoin
+                </li>
+                <li> <input type="checkbox" name="coin" id="NEO" value="NEO" v-model="checkedCoins"> NEO </li>
+                <li> <input type="checkbox" name="coin" id="Ethereum" value="Ethereum" v-model="checkedCoins"> Ethereum
+                </li>
+            </ul>
+            <span>Click submit to get prices of these [[ checkedCoins.length ]] coin(s) daily in your inbox: </span>
+            <span v-for="checkedCoin in checkedCoins"> [[ checkedCoin ]],</span>
+            <br>
+            <input type="button" value="submit">
+        </div>
     </div>
 </body>
 <script>
@@ -43,5 +48,39 @@
         }
     })
 </script>
+
+<style scoped>
+    h2 {
+        color: #42b983;
+    }
+
+    html {
+        height: 100%;
+    }
+
+    body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+    }
+
+    #app {
+        color: #2c3e50;
+        margin-top: -100px;
+        max-width: 600px;
+        font-family: Source Sans Pro, Helvetica, Arial, sans-serif;
+        text-align: center;
+    }
+
+    #form {
+        text-align: justify;
+    }
+
+    .logo {
+        width: 100px;
+        height: 100px
+    }
+</style>
 
 </html>
