@@ -6,35 +6,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://unpkg.com/vue"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Crypto</title>
 </head>
 
 <body>
     <div id="app">
+        {% if submitted == False %}
+        <div class="alert alert-danger" role="alert">
+            Failed, Please enter your email and select at least one coin!
+        </div>
+        {% elif submitted == True %}
+        <div class="alert alert-success" role="alert">
+            Submitted!
+        </div>
+
+        {% endif %}
         {% load static %}
         <img class="logo" src="{% static "logo.png" %}">
         <h2> [[ title ]] </h2>
         <h3> [[ subtitle ]] </h3>
-
-        <div id="form">
-            <p>Enter your email: <input type="email" name="email" id="email"> </p>
-            <p>Pick some coins to track:</p>
-            <ul>
-                <li> <input type="checkbox" name="coin" id="Bitcoin" value="Bitcoin" v-model="checkedCoins"> Bitcoin
-                </li>
-                <li> <input type="checkbox" name="coin" id="Dogecoin" value="Dogecoin" v-model="checkedCoins"> Dogecoin
-                </li>
-                <li> <input type="checkbox" name="coin" id="Litecoin" value="Litecoin" v-model="checkedCoins"> Litecoin
-                </li>
-                <li> <input type="checkbox" name="coin" id="NEO" value="NEO" v-model="checkedCoins"> NEO </li>
-                <li> <input type="checkbox" name="coin" id="Ethereum" value="Ethereum" v-model="checkedCoins"> Ethereum
-                </li>
-            </ul>
-            <span>Click submit to get prices of these [[ checkedCoins.length ]] coin(s) daily in your inbox: </span>
-            <span v-for="checkedCoin in checkedCoins"> [[ checkedCoin ]],</span>
-            <br>
-            <input type="button" value="submit">
-        </div>
+        <form action="/track" method="get">
+            {% csrf_token %}
+            <p><input type="text" name="email" class="form-control" placeholder="Enter your email" v-model="email">
+            </p>
+            <div id="coins">
+                <p>Pick some coins to track:</p>
+                <ul>
+                    <li> <input type="checkbox" name="coin" id="Bitcoin" value="Bitcoin" v-model="checkedCoins"> Bitcoin
+                    </li>
+                    <li> <input type="checkbox" name="coin" id="Dogecoin" value="Dogecoin" v-model="checkedCoins">
+                        Dogecoin
+                    </li>
+                    <li> <input type="checkbox" name="coin" id="Litecoin" value="Litecoin" v-model="checkedCoins">
+                        Litecoin
+                    </li>
+                    <li> <input type="checkbox" name="coin" id="NEO" value="NEO" v-model="checkedCoins"> NEO </li>
+                    <li> <input type="checkbox" name="coin" id="Ethereum" value="Ethereum" v-model="checkedCoins">
+                        Ethereum
+                    </li>
+                </ul>
+                <p><span>Click submit to get prices of these <b>[[ checkedCoins.length ]] coin(s)</b> daily in your
+                        inbox:</span></p>
+            </div>
+            <p><span v-for="checkedCoin in checkedCoins"> [[ checkedCoin ]],</span></p>
+            <button type="submit" class="btn btn-dark" v-if="checkedCoins && email">SUBMIT</button>
+            <button type="button" class="btn btn-dark" v-else disabled>SUBMIT</button>
+        </form>
     </div>
 </body>
 <script>
@@ -44,7 +63,8 @@
         data: {
             title: 'Crypto personalized!',
             subtitle: 'You can\'t predict! You can only prepare.',
-            checkedCoins: []
+            checkedCoins: [],
+            email: null
         }
     })
 </script>
@@ -73,7 +93,7 @@
         text-align: center;
     }
 
-    #form {
+    #coins {
         text-align: justify;
     }
 
@@ -81,6 +101,8 @@
         width: 100px;
         height: 100px
     }
+
+    .button {}
 </style>
 
 </html>
