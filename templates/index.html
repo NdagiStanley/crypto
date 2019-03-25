@@ -5,23 +5,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://unpkg.com/vue"></script>
     <title>Crypto</title>
 </head>
 
 <body>
-    <h2>Crypto personalized!</h2>
-    <h3>You can't predict! You can only prepare.</h3>
+    <div id="app">
+        <h2> [[ title ]] </h2>
+        <h3> [[ subtitle ]] </h3>
 
-    <p>Enter your email: <input type="email" name="email" id="email"> </p>
-    <p>Pick some coins to track:</p>
-    <ul>
-        <li> <input type="checkbox" name="coin" id="Bitcoin"> Bitcoin </li>
-        <li> <input type="checkbox" name="coin" id="Dogecoin"> Dogecoin </li>
-        <li> <input type="checkbox" name="coin" id="Litecoin"> Litecoin </li>
-        <li> <input type="checkbox" name="coin" id="NEO"> NEO </li>
-        <li> <input type="checkbox" name="coin" id="Ethereum"> Ethereum </li>
-    </ul>
-    <input type="button" value="submit">
+        <p>Enter your email: <input type="email" name="email" id="email"> </p>
+        <p>Pick some coins to track:</p>
+        <ul>
+            <li> <input type="checkbox" name="coin" id="Bitcoin" value="Bitcoin" v-model="checkedCoins"> Bitcoin </li>
+            <li> <input type="checkbox" name="coin" id="Dogecoin" value="Dogecoin" v-model="checkedCoins"> Dogecoin
+            </li>
+            <li> <input type="checkbox" name="coin" id="Litecoin" value="Litecoin" v-model="checkedCoins"> Litecoin
+            </li>
+            <li> <input type="checkbox" name="coin" id="NEO" value="NEO" v-model="checkedCoins"> NEO </li>
+            <li> <input type="checkbox" name="coin" id="Ethereum" value="Ethereum" v-model="checkedCoins"> Ethereum
+            </li>
+        </ul>
+        <span>Click submit to get prices of these [[ checkedCoins.length ]] coin(s) daily in your inbox: </span>
+        <span v-for="checkedCoin in checkedCoins"> [[ checkedCoin ]],</span>
+        <br>
+        <input type="button" value="submit">
+    </div>
 </body>
+<script>
+    new Vue({
+        delimiters: ['[[', ']]'],
+        el: '#app',
+        data: {
+            title: 'Crypto personalized!',
+            subtitle: 'You can\'t predict! You can only prepare.',
+            checkedCoins: []
+        }
+    })
+</script>
 
 </html>
