@@ -6,6 +6,7 @@ class User(models.Model):
     coins = models.TextField()
 
     def set_coins(self, coins):
+        self.coins = ''
         for coin in coins:
             self.coins += f'{coin},'
 

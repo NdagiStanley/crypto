@@ -1,5 +1,5 @@
 from django.shortcuts import render, render_to_response
-from .utils import get_prices, send_email, daily_send_emails
+from .utils import get_prices, send_email
 from .models import User
 
 
@@ -22,8 +22,6 @@ def track(request):
             new_user.save()
         prices = get_prices(coins)
         send_email(email, prices)
-
-        daily_send_emails()
 
     else:
         submitted = False

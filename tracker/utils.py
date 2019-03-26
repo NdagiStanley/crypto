@@ -41,9 +41,11 @@ def get_prices(coins):
 
 
 def send_email(email, prices):
-    message = ''
+    message = '''Good morning! This is how your coins are priced today.
+                '''
     for coin_name, price in prices.items():
-        message += f'The price for {coin_name} in USD is ${price}.\n'
+        message += f'''
+            The price for {coin_name.upper()} in USD is ${price}'''
 
     send_mail(
         'Crypto daily update',
@@ -62,6 +64,7 @@ def daily_send_emails():
         coins = user.get_coins()
         prices = get_prices(coins)
 
+        print(f'< {email} | {prices} >')
         send_email(email, prices)
 
 
