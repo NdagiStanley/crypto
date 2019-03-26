@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,8 +24,7 @@
         </div>
 
         {% endif %}
-        {% load static %}
-        <img class="logo" src="{% static "logo.png" %}">
+        <img class="logo" src="{% static 'logo.png' %}">
         <h2> [[ title ]] </h2>
         <h3> [[ subtitle ]] </h3>
         <form action="/track" method="get">

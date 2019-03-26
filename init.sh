@@ -3,6 +3,7 @@ sudo apt-get -y upgrade
 sudo apt-get install -y python3-pip
 
 pip3 install -r requirements.txt
+python manage.py collectstatic
 sudo ufw allow 8000
 
 
