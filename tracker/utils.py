@@ -1,11 +1,12 @@
+import json
+import os
+
 from django_cron import CronJobBase, Schedule
 from django.core.mail import send_mail
-
 from requests import Session
 from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
-import json
 
-import os
+from .models import User
 
 
 def get_prices(coins):
@@ -57,7 +58,6 @@ def send_email(email, prices, frequency=''):
 
 
 def daily_send_emails():
-    from .models import User
     users = User.objects.all()
     for user in users:
         email = user.email
@@ -69,7 +69,7 @@ def daily_send_emails():
 
 
 class MyCronJob(CronJobBase):
-    RUN_EVERY_MINS = 10
+    RUN_EVERY_MINS = 1
 
     schedule = Schedule(run_every_mins=RUN_EVERY_MINS)
     code = 'crypto.my_cron_job'
