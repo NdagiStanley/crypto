@@ -15,10 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from tracker.views import index, track
+from tracker.views import index, track, unsubscribe
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name='index'),
     path('track/', track),
+    path('unsubscribe/', unsubscribe),
 ]

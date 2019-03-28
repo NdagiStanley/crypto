@@ -59,13 +59,16 @@ def send_email(email, prices, frequency=''):
 
 def daily_send_emails():
     users = User.objects.all()
-    for user in users:
-        email = user.email
-        coins = user.get_coins()
-        prices = get_prices(coins)
+    if users:
+        for user in users:
+            email = user.email
+            coins = user.get_coins()
+            prices = get_prices(coins)
 
-        print(f'< {email} | {prices} >')
-        send_email(email, prices, frequency='daily')
+            print(f'< {email} | {prices} >')
+            send_email(email, prices, frequency='daily')
+    else:
+        print('No users subscribed')
 
 
 class MyCronJob(CronJobBase):

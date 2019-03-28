@@ -22,9 +22,19 @@
         <div class="alert alert-success" role="alert">
             Submitted!
         </div>
-
         {% endif %}
-        <img class="logo" src="{% static 'logo.png' %}">
+
+        {% if unsubscribed == False %}
+        <div class="alert alert-danger" role="alert">
+            Entered email is not subscribed!
+        </div>
+        {% elif unsubscribed == True %}
+        <div class="alert alert-success" role="alert">
+            Unsubscribed!
+        </div>
+        {% endif %}
+
+        <a href="/"><img class="logo" src="{% static 'logo.png' %}"></a>
         <h2> [[ title ]] </h2>
         <h3> [[ subtitle ]] </h3>
         <form action="/track" method="get">
@@ -53,6 +63,12 @@
             <p><span v-for="checkedCoin in checkedCoins"> [[ checkedCoin ]],</span></p>
             <button type="submit" class="btn btn-dark" v-if="checkedCoins && email">SUBMIT</button>
             <button type="button" class="btn btn-dark" v-else disabled>SUBMIT</button>
+        </form>
+
+        <form action="/unsubscribe" method="get">
+            {% csrf_token %}
+            <input type="text" name="email" class="form-control" hidden v-model="email">
+            <button type="submit" class="btn btn-light">UNSUBSCRIBE</button>
         </form>
     </div>
 </body>

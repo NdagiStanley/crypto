@@ -26,3 +26,15 @@ def track(request):
     else:
         submitted = False
     return render_to_response('index.html', {'submitted': submitted})
+
+
+def unsubscribe(request):
+    payload = dict(request.GET)
+    unsubscribed = None
+    email = payload.get('email')[0]
+    if User.objects.filter(email=email):
+        User.objects.get(email=email).delete()
+        unsubscribed = True
+    else:
+        unsubscribed = False
+    return render_to_response('index.html', {'unsubscribed': unsubscribed})
