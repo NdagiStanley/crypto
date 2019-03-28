@@ -48,7 +48,7 @@ def send_email(email, prices, frequency=None):
             The price for {coin_name.upper()} in USD is ${price}'''
 
     send_mail(
-        f'Crypto {frequency} update',
+        f'Crypto {'' if not frequency else frequency} update',
         'Good morning! ' + message if frequency else message,
         'no_reply@crypto.io',
         [email],
