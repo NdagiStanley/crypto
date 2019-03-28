@@ -40,7 +40,7 @@ def get_prices(coins):
         return None
 
 
-def send_email(email, prices, frequency=None):
+def send_email(email, prices, frequency=''):
     message = '''This is how your coins are priced today.
                 '''
     for coin_name, price in prices.items():
@@ -48,7 +48,7 @@ def send_email(email, prices, frequency=None):
             The price for {coin_name.upper()} in USD is ${price}'''
 
     send_mail(
-        f'Crypto {'' if not frequency else frequency} update',
+        f'Crypto { frequency } update',
         'Good morning! ' + message if frequency else message,
         'no_reply@crypto.io',
         [email],
