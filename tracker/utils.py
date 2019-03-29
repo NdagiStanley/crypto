@@ -42,15 +42,15 @@ def get_prices(coins):
 
 
 def send_email(email, prices, frequency=''):
-    message = '''This is how your coins are priced today.
+    message = '''This is how your coins are priced at the moment.
                 '''
     for coin_name, price in prices.items():
         message += f'''
             The price for {coin_name.upper()} in USD is ${price}'''
 
     send_mail(
-        f'Crypto { frequency } update',
-        'Good morning! ' + message if frequency else message,
+        f'{ frequency } Crypto Coins Price Update',
+        'Good morning! ' + message if frequency else 'Welcome to Crypto personalized!\n' + message,
         'no_reply@crypto.io',
         [email],
         fail_silently=False,
@@ -66,13 +66,13 @@ def daily_send_emails():
             prices = get_prices(coins)
 
             print(f'< {email} | {prices} >')
-            send_email(email, prices, frequency='daily')
+            send_email(email, prices, frequency='Periodic')
     else:
-        print('No users subscribed')
+        print('!!! No users subscribed !!!')
 
 
 class MyCronJob(CronJobBase):
-    RUN_EVERY_MINS = 1
+    RUN_EVERY_MINS = os.getenv('CRONJOB_FREQUENCY')
 
     schedule = Schedule(run_every_mins=RUN_EVERY_MINS)
     code = 'crypto.my_cron_job'
