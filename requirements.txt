@@ -1,0 +1,4 @@
+Django==2.1.7
+django-sendgrid-v5
+django_cron
+requests
